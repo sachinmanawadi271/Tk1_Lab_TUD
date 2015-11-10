@@ -1,3 +1,10 @@
+Task 1.1: Describe the three basic problems of distributed systems. 
+
+The three basic problems of distributed systems
+1)	Lack of Global State – In a distributed system the global state is not accessible as there is no global shared internet memory. So even if we access a distributed system or the nodes, due to the travelling duration the state may get outdated by the time it reaches back to your central system.  Stopping the system and collecting all the information before restarting is an option but it’s is not possible for a network bigger than 50 nodes. So the monitoring of the distributed system is difficult.
+2)	Clocks are not 100% synchronized – All the nodes in the distributed system may not have their clocks synchronized. Lets consider two Events EA and EB in the nodes A and B. Its supposed that EA occurs before EB but how can it be confirmed that the clock timings are equal for both the nodes? Due to the travelling time EA could have happened after EB. So without more control of your system it cannot be assumed that the system is synchronized.
+3)	Indeterministic Behavior – With distributed systems, execution of the same program in the same distributed system twice could have different results. This indeterminism occurs due to issues with the underlying computer network. During each execution phase the messages may be passing through different threads and the senders may also be different, and due to this race conditions could occur and your program is affected by this. 
+
 Task 1.2: Describe the four abstraction levels of distributed systems. 
 The four abstraction levels of distributed systems are
 1.	Physical Configuration
