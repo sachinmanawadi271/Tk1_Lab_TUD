@@ -9,9 +9,13 @@ Referred: http://www.cs.unc.edu/~dewan/242/s04/notes/ipc/node30.html
 Task 1.2: Marshalling 
 a)	Define the Term Marshalling?
 Marshalling is the process of transforming memory representation of an object into different formats or packing of procedure parameters into message packets. It is mainly used to make communication between remote objects by converting it into serialized form. 
+While networking between a sender and a receiver the need of handing over arguments to the called procedure arises. Since there will be complex representations of data types involved in the transfer we need to flatten these complex data structures .This is done with marshaling and involves the use of some kind of syntax to do the data representation.
 
 b)	 In the lecture CORBA CDR has been presented. In CORBA CDR there is no explicit typing. Explain why this is the case and describe advantages as well as disadvantages.  
-The use of explicit data typing produces cost in space and time. It need to              interpret the type information and also it need to invoke appropriate actions, so there should be a performance cost. The extra type information is in the marshalled form so there should be space cost also. The RMI protocol for CDR is used when the target and the invoker know what type to expect in the messages carrying its arguments and results. It is possible to build type descriptor on top of CDR.
+
+In CORBA CDR data is represented using 4 bytes sequences. There is no structural information in CDR because both the sender and the receiver knows what is coming next in the message. There is no need to encode structural information. By defining the interface definition language(IDL) we can provide a way to represent the data in a common way that both sides involved in a connection will understand. 
+The use of explicit data typing produces cost in space and time. It need to interpret the type information and also it need to invoke appropriate actions, so there should be a performance cost. The extra type information is in the marshalled form so there should be space cost also. The RMI protocol for CDR is used when the target and the invoker know what type to expect in the messages carrying its arguments and results. It is possible to build type descriptor on top of CDR.
+CORBA CDR enables the senders and the receivers to work together even if they are written in different programming languages. 
 Referred: http://read.pudn.com/downloads151/ebook/655783/Distributed/Chapter4Answers.pdf
 
 
