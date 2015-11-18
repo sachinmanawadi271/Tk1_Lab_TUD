@@ -1,11 +1,10 @@
-Task 1.1: RPC Failure Semantics 
-Four types of RPC Failure Semantics are there
-a)	At Least Once Semantics: In this the system will retry till the function is invoked successfully. Client send request to the server until the server is acknowledged the request. This should be done only since the operation is idempotent, which means when the multiple invocations are done it should give the same result. The idempotent operations should be stateless, which should not modify the global state in response to the client request.
-b)	At Most Once Semantics: This is completely depended on the server status. It executes only once depending on whether the server machine is down. This will recognize the duplicates and also it executes non-idempotent operations.
-c)	Exactly Once Semantics: This will tolerate the server crashes by assuming that the crashed server will restart eventually. It will track the calls on the server that is crashed and allow them to adapt to new server.
-d)	Maybe Semantics: In this there are no repeated requests. For an operation the caller never receives any fault indication and also they don’t know whether the operations are successfully completed. The Operations in this semantics are implicitly idempotent.
-Referred: http://www.cs.unc.edu/~dewan/242/s04/notes/ipc/node30.html
-                  http://pubs.opengroup.org/onlinepubs/9629399/chap6.htm
+To ensure at-most-once delivery, it is necessary to suppress duplicates.
+The server has an algorithm that maintains a table of previously-seen requests. Whenever a message arrives, the algorithm checks the incoming message against the list of previously-seen messages. If this request is new, it is added to the list for serving the request and sends an acknowledgment back to the client. If the request is already in its list, it discards the the request, but it resends the acknowledgment, in case the client did not receive the previous one. If, in addition, the application has already sent a response to the original request, the response is resent.
+The main problem with this technique is that the list of requests maintained at the server side may grow indefinitely, taking up space and, taking time to search. Because they may have to be kept indefinitely and hence an appropriate algorithm with optimal size of buffer has to be designed.
+	On the client side additional field in the message, monotonically increasing sequence numbers for the requests, and include the highest sequence number for which it has received an acknowledgment. The receiving side can then discard that requests and any others from that sender that are smaller than the received sequence number.
+
+Ref:Principles of Computer System Design An Introduction .Jerome H. Saltzer M. Frans Kaashoek Massachusetts Institute of Technology 
+
 Task 1.2: Marshalling 
 a)	Define the Term Marshalling?
 Marshalling is the process of transforming memory representation of an object into different formats or packing of procedure parameters into message packets. It is mainly used to make communication between remote objects by converting it into serialized form. 
